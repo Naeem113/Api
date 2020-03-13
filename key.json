@@ -1,6 +1,0 @@
-{
-  "env": {
-    "JWTKEY": "secret",
-    "MONGOD": "naeem113"
-  }
-}
