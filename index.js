@@ -7,8 +7,8 @@ const key = require ('./configure/key');
 const morgan = require ('morgan');
 const bodyParser = require ('body-parser');
 const mongoose = require ('mongoose');
-mongoose.connect (key.mongoKey);
 
+mongoose.connect (key.mongoKey);
 mongoose.Promise = global.Promise;
 
 const app = express ();
