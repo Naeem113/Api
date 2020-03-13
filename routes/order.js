@@ -3,10 +3,11 @@ const routes = express.Router ();
 const Order = require ('../models/orderData');
 const Product = require ('../models/product');
 const mongoose = require ('mongoose');
+const checkAuth = require ('../routeAuth/checkAuth');
 
 //Route for GET all ORDER.....
 
-routes.get ('/', (req, res, next) => {
+routes.get ('/', checkAuth, (req, res, next) => {
   //Route for DELETE Single Product by using its ID.....
   Order.find ()
     .populate ('product', 'name')
@@ -43,7 +44,7 @@ routes.get ('/', (req, res, next) => {
 
 //Route for POST Single Order.....
 
-routes.post ('/', (req, res, next) => {
+routes.post ('/', checkAuth, (req, res, next) => {
   Product.findById (req.body.productId)
     .then (product => {
       const order = new Order ({
@@ -108,7 +109,7 @@ routes.post ('/', (req, res, next) => {
 
 //Route for GET Single Order by using its ID.....
 
-routes.get ('/:orderId', (req, res, next) => {
+routes.get ('/:orderId', checkAuth, (req, res, next) => {
   const id = req.params.orderId;
   Order.findById (id)
     .populate ('product')
@@ -143,7 +144,7 @@ routes.get ('/:orderId', (req, res, next) => {
 
 //Route for DELETE Single Order by using its ID.....
 
-routes.delete ('/:orderId', (req, res, next) => {
+routes.delete ('/:orderId', checkAuth, (req, res, next) => {
   const id = req.params.orderId;
   Order.remove ({_id: id})
     .exec ()

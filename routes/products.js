@@ -1,6 +1,7 @@
 const express = require ('express');
 const Product = require ('../models/product');
 const mongoose = require ('mongoose');
+const checkAuth = require ('../routeAuth/checkAuth');
 
 const routes = express.Router ();
 
@@ -42,7 +43,7 @@ routes.get ('/', (req, res, next) => {
 
 //Route for POST Single Product.....
 
-routes.post ('/', (req, res, next) => {
+routes.post ('/', checkAuth, (req, res, next) => {
   const product = new Product ({
     _id: new mongoose.Types.ObjectId (),
     name: req.body.name,
@@ -108,7 +109,7 @@ routes.get ('/:productId', (req, res, next) => {
 
 //Route for UPDATE Single Product by using its ID.....
 
-routes.patch ('/:productId', (req, res, next) => {
+routes.patch ('/:productId', checkAuth, (req, res, next) => {
   const id = req.params.productId;
   //   const updateOpr = {};
   //   for (const op of req.body) {
@@ -144,7 +145,7 @@ routes.patch ('/:productId', (req, res, next) => {
 
 //Route for DELETE Single Product by using its ID.....
 
-routes.delete ('/:productId', (req, res, next) => {
+routes.delete ('/:productId', checkAuth, (req, res, next) => {
   const id = req.params.productId;
   Product.remove ({_id: id})
     .exec ()
